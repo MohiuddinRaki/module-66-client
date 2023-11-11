@@ -1,8 +1,6 @@
 import SectionTitle from "./../../../components/SectionTitle/SectionTitle";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 // import "./Testimonilas.css";
