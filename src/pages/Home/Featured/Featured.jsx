@@ -20,8 +20,7 @@ const Featured = () => {
           <p className="my-3">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores
             velit eaque alias harum quisquam inventore! Voluptatum temporibus
-            iure minima, placeat rem libero fugiat beatae blanditiis
-            perspiciatis velit vitae consectetur est!
+            iure minima, placeat rem libero fugiat beatae blanditiis.
           </p>
           <button className="btn btn-outline border-0 border-b-4 text-white">Order Now</button>
         </div>
