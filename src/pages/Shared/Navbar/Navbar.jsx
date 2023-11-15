@@ -1,9 +1,18 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../../hooks/useCart";
+import useAuth from "../../../hooks/useAuth";
+// import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Navbar = () => {
-  const { logOutUser, user } = useContext(AuthContext);
+  const { logOutUser, user } = useAuth()
+  const [cart] = useCart()
+  // const myEmail = user?.email
+  // // const [carts, setCarts] = useState([]);
+  // // const axiosSecure = useAxiosSecure()
+  // const carts = carts.filter(
+  //   (cart) => cart?.email === myEmail
+  // );
 
   const handleLogOut = () => {
     logOutUser()
@@ -25,9 +34,17 @@ const Navbar = () => {
       <li>
         <Link to="/secret">Secret</Link>
       </li>
+      <li>
+        <Link to="/dashboard/cart">
+          <button className="btn">
+            <FaShoppingCart></FaShoppingCart>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </Link>
+      </li>
       {user ? (
         <>
-        <span>{user?. displayName}</span>
+          {/* <span>{user?. displayName}</span> */}
           <button onClick={handleLogOut} className="btn btn-ghost">
             Log Out
           </button>
@@ -41,6 +58,15 @@ const Navbar = () => {
       )}
     </>
   );
+
+  // useEffect(() => {
+  //   axiosSecure.get("/carts")
+  //     .then((response) => setCarts(response.data))
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
+
   return (
     <>
       <div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
@@ -70,14 +96,16 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/">
-            <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a>
+            <button className="btn btn-ghost normal-case text-xl">
+              Bistro Boss
+            </button>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <button className="btn">Button</button>
         </div>
       </div>
     </>
