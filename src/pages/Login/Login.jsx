@@ -8,6 +8,7 @@ import {
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../components/socialLogin/SocialLogin";
 
 const Login = () => {
   // const captchaRef = useRef(null);
@@ -74,7 +75,7 @@ const Login = () => {
               et a id nisi.
             </p>
           </div>
-          <div className="card md:w-1/2 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card md:w-1/2 w-full max-w-sm shadow-2xl bg-base-100 pb-6">
             <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -129,10 +130,13 @@ const Login = () => {
               </div>
             </form>
             <p>
-              <small className="m-5">
+              <small className="px-6">
                 new here? <Link to="/signup">Create an account</Link>
               </small>
             </p>
+            <h2 className="p-6">
+              continur with <SocialLogin></SocialLogin>
+            </h2>
           </div>
         </div>
       </div>

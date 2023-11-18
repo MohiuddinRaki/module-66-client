@@ -4,42 +4,55 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/socialLogin/SocialLogin";
 
 const SignUp = () => {
-
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
-    createUser(data.email, data.password)
-    .then(result => {
+    createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser)
+      console.log(loggedUser);
       updateUserProfile(data.name, data.photoUrl)
-      .then(() => {
-        console.log("user updateed")
-        reset()
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title: "user created successfully",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        navigate("/")
-      })
-      .catch(error => console.log(error))
-    })
+        .then(() => {
+          // creat user entry in the database:
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "user added successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
+    });
   };
 
   // console.log(watch("example"))
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Bistro Boss | SignUp</title>
       </Helmet>
       <div className="hero min-h-screen bg-base-200">
@@ -52,7 +65,7 @@ const SignUp = () => {
               et a id nisi.
             </p>
           </div>
-          <div className="card md:w-1/2 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card md:w-1/2 w-full max-w-sm shadow-2xl bg-base-100 pb-6">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -80,7 +93,9 @@ const SignUp = () => {
                   className="input input-bordered"
                 />
                 {errors.photoUrl && (
-                  <span className="text-red-500">photoUrl field is required</span>
+                  <span className="text-red-500">
+                    photoUrl field is required
+                  </span>
                 )}
               </div>
               <div className="form-control">
@@ -144,10 +159,13 @@ const SignUp = () => {
               </div>
             </form>
             <p>
-              <small className="m-4">
+              <small className="px-6">
                 Alreday have an accoint? <Link to="/login">Please Login</Link>
               </small>
             </p>
+            <h2 className="p-6">
+              <SocialLogin></SocialLogin>
+            </h2>
           </div>
         </div>
       </div>
