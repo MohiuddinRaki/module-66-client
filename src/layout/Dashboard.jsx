@@ -1,8 +1,8 @@
 import {
   FaAd,
   FaBook,
-  FaCalendar,
   FaEnvelope,
+  FaHistory,
   FaHome,
   FaList,
   FaSearch,
@@ -65,9 +65,9 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/reservation">
-                  <FaCalendar></FaCalendar>
-                  User Reservation
+                <NavLink to="/dashboard/history">
+                  <FaHistory></FaHistory>
+                 Not History
                 </NavLink>
               </li>
               <li>
@@ -77,9 +77,9 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/bookings">
-                  <FaBook></FaBook>
-                  My Booking
+                <NavLink to="/dashboard/paymentHistory">
+                  <FaHistory></FaHistory>
+                 Real payment History
                 </NavLink>
               </li>
               <li>
